@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head> 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para ti</title>
+<title>Para MAFER</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -58,6 +58,7 @@
     justify-content: center;
     align-items: flex-end;
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+    z-index: 5; 
   }
 
   .stem {
@@ -122,28 +123,74 @@
   .petal:nth-child(11){animation-delay: 3.4s }
   .petal:nth-child(12){animation-delay: 3.5s }
 
-  @keyframes growStem {
-    0% { height: 0; }
-    100% { height: 50vh; }
+  @keyframes growStem { 0% { height: 0; } 100% { height: 50vh; } }
+  @keyframes popCenter { to { transform: scale(1); } }
+  @keyframes bloomPetal { to { transform: translate(-50%, -100%) rotate(var(--r)) scale(1); } }
+  @keyframes fadeInText { to { opacity: 1; transform: translateY(-20px); } }
+  @keyframes twinkle { 0% { opacity: 0.3; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+
+  .question-box {
+    position: fixed;
+    bottom: 12%; 
+    left: 0; right: 0; margin: auto;
+    width: 85vw; 
+    max-width: 340px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+    z-index: 20; 
+    display: none; 
   }
 
-  @keyframes popCenter {
-    to { transform: scale(1); }
+  .question-box.show { display: block; animation: fadeInText .8s ease forwards; }
+
+  .question-text {
+    color: #fff;
+    font-size: 6vmin;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(224,64,251,0.3);
   }
 
-  @keyframes bloomPetal {
-    to { transform: translate(-50%, -100%) rotate(var(--r)) scale(1); }
+  .btn-container {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    gap: 12px;
   }
 
-  @keyframes fadeInText {
-    to { opacity: 1; transform: translateY(-20px); }
+  .btn {
+    padding: 10px 14px;
+    font-size: 4.5vmin;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Dancing Script', cursive;
+    transition: transform .12s ease;
+    user-select: none;
+    flex: 1; 
   }
+  .btn:active { transform: scale(.96) }
+  
+  .style-si { background: #4caf50; color: white; }
+  .style-no { background: #f44336; color: white; }
+  .style-maybe { background: #ffc107; color: #111; }
 
-  @keyframes twinkle {
-    0% { opacity: 0.3; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.2); }
+  .capture-instruction {
+    position: fixed;
+    bottom: 10px;
+    left: 0; right: 0; margin: auto;
+    width: fit-content;
+    z-index: 30;
+    color: rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.3);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 3.2vmin;
+    text-align: center;
   }
-
 </style>
 </head>
 <body>
@@ -155,26 +202,123 @@
 
 <div class="text">Me encantas ❤️</div>
 
+<div class="question-box" id="poll">
+  <div class="question-text">¿Te gustaría salir?</div>
+  <div class="btn-container">
+    <button class="btn" id="btn1">Sí</button>
+    <button class="btn" id="btn2">No</button>
+    <button class="btn style-maybe" id="btnMaybe">Tal vez</button>
+  </div>
+</div>
+
 <div class="flower-wrapper">
   <div class="stem"></div>
-  
   <div class="head">
-    <div class="petal" style="--r:0deg"></div>
-    <div class="petal" style="--r:30deg"></div>
-    <div class="petal" style="--r:60deg"></div>
-    <div class="petal" style="--r:90deg"></div>
-    <div class="petal" style="--r:120deg"></div>
-    <div class="petal" style="--r:150deg"></div>
-    <div class="petal" style="--r:180deg"></div>
-    <div class="petal" style="--r:210deg"></div>
-    <div class="petal" style="--r:240deg"></div>
-    <div class="petal" style="--r:270deg"></div>
-    <div class="petal" style="--r:300deg"></div>
-    <div class="petal" style="--r:330deg"></div>
-    
+    <div class="petal" style="--r:0deg"></div><div class="petal" style="--r:30deg"></div>
+    <div class="petal" style="--r:60deg"></div><div class="petal" style="--r:90deg"></div>
+    <div class="petal" style="--r:120deg"></div><div class="petal" style="--r:150deg"></div>
+    <div class="petal" style="--r:180deg"></div><div class="petal" style="--r:210deg"></div>
+    <div class="petal" style="--r:240deg"></div><div class="petal" style="--r:270deg"></div>
+    <div class="petal" style="--r:300deg"></div><div class="petal" style="--r:330deg"></div>
     <div class="center"></div>
   </div>
 </div>
 
+<div class="capture-instruction" id="capture">Manda cap: antraxred77@gmail.com</div>
+
+<script>
+  setTimeout(() => {
+    document.getElementById('poll').classList.add('show');
+  }, 4800);
+
+  const btn1 = document.getElementById('btn1');
+  const btn2 = document.getElementById('btn2');
+  const btnMaybe = document.getElementById('btnMaybe');
+  const pollBox = document.getElementById('poll');
+
+  let esquemaNormal = true;
+  let puedoHacerClick = true;
+
+  function actualizarEstilos() {
+    if (esquemaNormal) {
+      btn1.textContent = "Sí";
+      btn1.className = "btn style-si";
+      btn2.textContent = "No";
+      btn2.className = "btn style-no";
+    } else {
+      btn1.textContent = "No";
+      btn1.className = "btn style-no";
+      btn2.textContent = "Sí";
+      btn2.className = "btn style-si";
+    }
+  }
+
+  function intercambiar() {
+    esquemaNormal = !esquemaNormal;
+    actualizarEstilos();
+    
+    puedoHacerClick = false;
+    setTimeout(() => {
+      puedoHacerClick = true;
+    }, 250);
+  }
+
+  function aceptar() {
+    pollBox.innerHTML = "<div class='question-text'>¡Ya sabia que sí! 🥰, no tenias opcion jajaja 💀</div>";
+  }
+
+  function manejarClick(botonId) {
+    if (!puedoHacerClick) return;
+
+    const esBoton1 = (botonId === 'btn1');
+    let esVerde = (esquemaNormal && esBoton1) || (!esquemaNormal && !esBoton1);
+
+    if (esVerde) {
+      aceptar();
+    } else {
+      intercambiar();
+    }
+  }
+
+  actualizarEstilos();
+
+  btn1.addEventListener('click', () => manejarClick('btn1'));
+  btn2.addEventListener('click', () => manejarClick('btn2'));
+
+  function intentarHuir(botonId) {
+    const esBoton1 = (botonId === 'btn1');
+    const esRojo = (esquemaNormal && !esBoton1) || (!esquemaNormal && esBoton1);
+    
+    if (esRojo) {
+      intercambiar();
+    }
+  }
+
+  btn1.addEventListener('mouseover', () => intentarHuir('btn1'));
+  btn2.addEventListener('mouseover', () => intentarHuir('btn2'));
+  
+  btn1.addEventListener('touchstart', (e) => { 
+    const esRojo = (!esquemaNormal);
+    if(esRojo) { 
+        e.preventDefault(); 
+        intercambiar(); 
+    }
+  });
+  
+  btn2.addEventListener('touchstart', (e) => { 
+    const esRojo = (esquemaNormal);
+    if(esRojo) { 
+        e.preventDefault(); 
+        intercambiar(); 
+    }
+  });
+
+  btnMaybe.addEventListener('click', () => {
+    pollBox.innerHTML = "<div class='question-text'>Ya es algo jajaja 😉</div>";
+  });
+
+</script>
+
 </body>
 </html>
+
