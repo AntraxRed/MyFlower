@@ -21,7 +21,6 @@
     position: relative;
   }
 
-  /* --- FONDO --- */
   .cosmos-container {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -69,7 +68,6 @@
     opacity: 0.8;
   }
 
-  /* --- PARTICULAS GRANDES --- */
   .embers {
     position: absolute;
     width: 100%; height: 100%;
@@ -156,9 +154,8 @@
   .head {
     position: absolute;
     bottom: 100%;
-    left: 50%; /* Centramos el punto de anclaje */
+    left: 50%;
     width: 0; height: 0;
-    /* Eliminamos display flex para evitar conflictos de apilamiento */
     z-index: 2;
     animation: spinFlower 4s linear infinite 3.5s;
   }
@@ -168,31 +165,28 @@
     to { transform: rotate(360deg); }
   }
 
-  /* --- PETALOS (Nivel 1) --- */
   .petal {
     position: absolute;
     height: 35vmin; 
     width: 10vmin;
     background: linear-gradient(to top, #ff5e00, #ffb300, #ffff00);
     border-radius: 50% 50% 10% 10%;
-    top: 0; left: 0; /* Anclados al centro exacto */
+    top: 0; left: 0;
     transform-origin: center bottom;
-    /* Se mueven hacia arriba desde el centro */
     transform: translate(-50%, -100%) rotate(var(--r)) scale(0);
     opacity: 0.95;
-    z-index: 1; /* Z-INDEX BAJO: Se pintan primero */
+    z-index: 1;
     box-shadow: 0 0 20px rgba(255, 160, 0, 0.7);
     animation: bloomPetal 1s ease-out forwards;
   }
 
-  /* --- EL CENTRO (Nivel 1000) - FORZAMOS QUE ESTE ENCIMA --- */
   .fiery-core {
     position: absolute;
     top: 0; left: 0;
     width: 28vmin; height: 28vmin;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(255,255,0,0.9) 10%, rgba(255,94,0,0.8) 50%, transparent 70%);
-    z-index: 900; /* Debajo del centro solido, pero encima de los petalos */
+    z-index: 900;
     filter: blur(15px);
     transform: translate(-50%, -50%) scale(0);
     animation: popCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.2s, firePulse 1.5s ease-in-out infinite alternate 3.2s;
@@ -205,7 +199,7 @@
     height: 25vmin;
     background: radial-gradient(circle, #ff9d00, #d84315);
     border-radius: 50%;
-    z-index: 1000; /* Z-INDEX ALTISIMO: Siempre encima de todo */
+    z-index: 1000;
     transform: translate(-50%, -50%) scale(0);
     box-shadow: inset 0 0 20px rgba(255, 255, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.8);
     background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
@@ -213,7 +207,6 @@
     animation: popCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.2s;
   }
 
-  /* Retrasos de pétalos */
   .petal:nth-child(1){ animation-delay: 2.4s }
   .petal:nth-child(2){ animation-delay: 2.5s }
   .petal:nth-child(3){ animation-delay: 2.6s }
@@ -325,7 +318,7 @@
   </div>
 </div>
 
-<div class="text">Me encantas ❤️</div>
+<div class="text">Intentemos denuevo jajaja ❤️</div>
 
 <div class="question-box" id="poll">
   <div class="question-text">¿Te gustaría salir?</div>
