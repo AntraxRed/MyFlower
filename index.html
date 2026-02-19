@@ -15,28 +15,110 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background: radial-gradient(circle at center bottom, #2b1055, #1d0938, #000000);
+    background-color: #0d0015;
     overflow: hidden;
     font-family: 'Dancing Script', cursive;
+    position: relative;
   }
 
-  .stars {
+  /* --- FONDO --- */
+  .cosmos-container {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
+    background: #12001f;
+    overflow: hidden;
+  }
+
+  .nebula {
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: 
+      radial-gradient(circle at 50% 50%, rgba(255, 0, 150, 0.15), transparent 60%),
+      radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.2), transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 20, 147, 0.2), transparent 50%),
+      radial-gradient(circle at 90% 90%, rgba(75, 0, 130, 0.3), transparent 60%);
+    filter: blur(30px);
+    animation: nebulaMove 40s linear infinite alternate;
+  }
+  
+  .nebula-2 {
+    background: 
+      radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.2), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(218, 112, 214, 0.2), transparent 50%);
+    animation: nebulaMove 25s ease-in-out infinite alternate-reverse;
+    filter: blur(40px);
+  }
+
+  @keyframes nebulaMove {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-5%, -5%) scale(1.1); }
+  }
+
+  .stars {
+    width: 2px; height: 2px;
+    background: transparent;
+    box-shadow: 
+      10vw 10vh #fff, 20vw 80vh #fff, 30vw 10vh #ffeeff, 40vw 90vh #fff,
+      50vw 40vh #ffccff, 60vw 20vh #fff, 70vw 90vh #fff, 80vw 50vh #ffeeff,
+      90vw 70vh #fff, 15vw 30vh #ffccff, 25vw 50vh #fff, 35vw 85vh #fff,
+      45vw 15vh #fff, 55vw 65vh #ffeeff, 65vw 35vh #fff, 75vw 05vh #fff,
+      85vw 25vh #ffccff, 95vw 55vh #fff, 05vw 95vh #fff, 12vw 45vh #fff;
+    animation: moveStars 100s linear infinite;
+    opacity: 0.8;
+  }
+
+  /* --- PARTICULAS GRANDES --- */
+  .embers {
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 1;
     pointer-events: none;
   }
   
-  .star-layer {
-    width: 3px; height: 3px;
-    background: transparent;
+  .ember {
+    position: absolute;
+    bottom: -10vh;
+    width: 6px; height: 6px;
+    background: #ff9d00;
     border-radius: 50%;
-    box-shadow: 
-      5vw 10vh #fff, 10vw 80vh #fff, 20vw 10vh #fff, 30vw 90vh #fff,
-      40vw 40vh #fff, 50vw 20vh #fff, 60vw 90vh #fff, 70vw 50vh #fff,
-      80vw 70vh #fff, 90vw 30vh #fff, 95vw 60vh #fff, 15vw 30vh #fff;
-    animation: twinkle 4s infinite alternate;
+    box-shadow: 0 0 10px #ff5e00, 0 0 20px #ff0000;
+    animation: riseEmber 8s linear infinite;
+    opacity: 0;
   }
+
+  .ember:nth-child(1) { left: 10%; animation-duration: 7s; animation-delay: 0s; width: 7px; height: 7px; }
+  .ember:nth-child(2) { left: 25%; animation-duration: 9s; animation-delay: 1s; width: 5px; height: 5px;}
+  .ember:nth-child(3) { left: 40%; animation-duration: 6s; animation-delay: 2s; background: #ffc107; width: 8px; height: 8px;}
+  .ember:nth-child(4) { left: 55%; animation-duration: 8.5s; animation-delay: 0.5s; }
+  .ember:nth-child(5) { left: 70%; animation-duration: 7.5s; animation-delay: 1.5s; width: 9px; height: 9px;}
+  .ember:nth-child(6) { left: 85%; animation-duration: 6.5s; animation-delay: 3s; background: #ff5722; width: 6px; height: 6px;}
+  .ember:nth-child(7) { left: 15%; animation-duration: 8s; animation-delay: 4s; width: 5px; height: 5px;}
+  .ember:nth-child(8) { left: 60%; animation-duration: 7s; animation-delay: 2.5s; width: 8px; height: 8px;}
+
+  @keyframes riseEmber {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 0.9; }
+    80% { opacity: 0.7; }
+    100% { opacity: 0; transform: translateY(-110vh) scale(1.2); }
+  }
+
+  .twinkling-stars {
+    position: absolute;
+    top:0; left:0; width: 100%; height: 100%;
+    background: transparent;
+  }
+  .star-blink {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+    box-shadow: 0 0 5px white;
+  }
+
+  @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-100vh); } }
+  @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } }
 
   .text {
     position: absolute;
@@ -45,7 +127,7 @@
     text-align: center;
     font-size: 12vmin;
     color: #fff;
-    text-shadow: 0 0 15px #e040fb, 0 0 30px #e040fb;
+    text-shadow: 0 0 10px #ff00de, 0 0 30px #ff00de, 0 0 70px #ff5e00;
     opacity: 0;
     z-index: 10;
     animation: fadeInText 2s ease forwards 3.5s;
@@ -57,7 +139,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 0 30px rgba(255, 100, 0, 0.5));
     z-index: 5; 
   }
 
@@ -74,42 +156,64 @@
   .head {
     position: absolute;
     bottom: 100%;
+    left: 50%; /* Centramos el punto de anclaje */
     width: 0; height: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Eliminamos display flex para evitar conflictos de apilamiento */
     z-index: 2;
+    animation: spinFlower 4s linear infinite 3.5s;
+  }
+  
+  @keyframes spinFlower {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
-  .center {
-    position: absolute;
-    width: 25vmin; 
-    height: 25vmin;
-    background: radial-gradient(circle, #ff6f00, #bf360c);
-    border-radius: 50%;
-    z-index: 10;
-    transform: scale(0);
-    box-shadow: 0 0 30px rgba(255, 111, 0, 0.8);
-    background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1px);
-    background-size: 1vmin 1vmin;
-    animation: popCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.2s;
-  }
-
+  /* --- PETALOS (Nivel 1) --- */
   .petal {
     position: absolute;
     height: 35vmin; 
     width: 10vmin;
-    background: linear-gradient(to top, #ff8f00, #ffca28, #ffee58);
+    background: linear-gradient(to top, #ff5e00, #ffb300, #ffff00);
     border-radius: 50% 50% 10% 10%;
-    top: 0; left: 0;
+    top: 0; left: 0; /* Anclados al centro exacto */
     transform-origin: center bottom;
+    /* Se mueven hacia arriba desde el centro */
     transform: translate(-50%, -100%) rotate(var(--r)) scale(0);
     opacity: 0.95;
-    z-index: 5;
-    box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+    z-index: 1; /* Z-INDEX BAJO: Se pintan primero */
+    box-shadow: 0 0 20px rgba(255, 160, 0, 0.7);
     animation: bloomPetal 1s ease-out forwards;
   }
 
+  /* --- EL CENTRO (Nivel 1000) - FORZAMOS QUE ESTE ENCIMA --- */
+  .fiery-core {
+    position: absolute;
+    top: 0; left: 0;
+    width: 28vmin; height: 28vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,0,0.9) 10%, rgba(255,94,0,0.8) 50%, transparent 70%);
+    z-index: 900; /* Debajo del centro solido, pero encima de los petalos */
+    filter: blur(15px);
+    transform: translate(-50%, -50%) scale(0);
+    animation: popCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.2s, firePulse 1.5s ease-in-out infinite alternate 3.2s;
+  }
+
+  .center {
+    position: absolute;
+    top: 0; left: 0;
+    width: 25vmin; 
+    height: 25vmin;
+    background: radial-gradient(circle, #ff9d00, #d84315);
+    border-radius: 50%;
+    z-index: 1000; /* Z-INDEX ALTISIMO: Siempre encima de todo */
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow: inset 0 0 20px rgba(255, 255, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.8);
+    background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
+    background-size: 1vmin 1vmin;
+    animation: popCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.2s;
+  }
+
+  /* Retrasos de pétalos */
   .petal:nth-child(1){ animation-delay: 2.4s }
   .petal:nth-child(2){ animation-delay: 2.5s }
   .petal:nth-child(3){ animation-delay: 2.6s }
@@ -124,10 +228,13 @@
   .petal:nth-child(12){animation-delay: 3.5s }
 
   @keyframes growStem { 0% { height: 0; } 100% { height: 50vh; } }
-  @keyframes popCenter { to { transform: scale(1); } }
+  @keyframes popCenter { to { transform: translate(-50%, -50%) scale(1); } }
+  @keyframes firePulse {
+    0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); filter: blur(15px) brightness(1); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); filter: blur(20px) brightness(1.5); }
+  }
   @keyframes bloomPetal { to { transform: translate(-50%, -100%) rotate(var(--r)) scale(1); } }
   @keyframes fadeInText { to { opacity: 1; transform: translateY(-20px); } }
-  @keyframes twinkle { 0% { opacity: 0.3; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
 
   .question-box {
     position: fixed;
@@ -135,14 +242,15 @@
     left: 0; right: 0; margin: auto;
     width: 85vw; 
     max-width: 340px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(6px);
+    background: rgba(40, 0, 10, 0.7); 
+    backdrop-filter: blur(10px);
     padding: 15px;
     border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255, 100, 50, 0.4);
     text-align: center;
     z-index: 20; 
     display: none; 
+    box-shadow: 0 5px 30px rgba(255, 50, 0, 0.3);
   }
 
   .question-box.show { display: block; animation: fadeInText .8s ease forwards; }
@@ -151,7 +259,7 @@
     color: #fff;
     font-size: 6vmin;
     margin-bottom: 15px;
-    text-shadow: 0 0 8px rgba(224,64,251,0.3);
+    text-shadow: 0 0 10px rgba(255, 100, 50, 0.8);
   }
 
   .btn-container {
@@ -174,9 +282,9 @@
   }
   .btn:active { transform: scale(.96) }
   
-  .style-si { background: #4caf50; color: white; }
-  .style-no { background: #f44336; color: white; }
-  .style-maybe { background: #ffc107; color: #111; }
+  .style-si { background: #4caf50; color: white; box-shadow: 0 0 15px rgba(76,175,80,0.6); border: 1px solid rgba(255,255,255,0.2);}
+  .style-no { background: #f44336; color: white; box-shadow: 0 0 15px rgba(244,67,54,0.6); border: 1px solid rgba(255,255,255,0.2);}
+  .style-maybe { background: #ffc107; color: #111; box-shadow: 0 0 15px rgba(255,193,7,0.6); border: 1px solid rgba(255,255,255,0.2);}
 
   .capture-instruction {
     position: fixed;
@@ -184,8 +292,8 @@
     left: 0; right: 0; margin: auto;
     width: fit-content;
     z-index: 30;
-    color: rgba(255,255,255,0.8);
-    background: rgba(0,0,0,0.3);
+    color: rgba(255,255,255,0.7);
+    background: rgba(0,0,0,0.4);
     padding: 6px 12px;
     border-radius: 12px;
     font-size: 3.2vmin;
@@ -195,9 +303,26 @@
 </head>
 <body>
 
-<div class="stars">
-  <div class="star-layer"></div>
-  <div class="star-layer" style="animation-delay: 2s; opacity: 0.3;"></div>
+<audio id="bgMusic" loop>
+  <source src="girasol.mp3" type="audio/mpeg">
+</audio>
+
+<div class="cosmos-container">
+  <div class="nebula"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="stars"></div>
+  <div class="embers">
+      <div class="ember"></div><div class="ember"></div>
+      <div class="ember"></div><div class="ember"></div>
+      <div class="ember"></div><div class="ember"></div>
+      <div class="ember"></div><div class="ember"></div>
+  </div>
+  <div class="twinkling-stars">
+    <div class="star-blink" style="top: 10%; left: 20%; width: 3px; height: 3px; animation-delay: 0s;"></div>
+    <div class="star-blink" style="top: 30%; left: 80%; width: 2px; height: 2px; animation-delay: 1s;"></div>
+    <div class="star-blink" style="top: 70%; left: 10%; width: 2px; height: 2px; animation-delay: 2s;"></div>
+    <div class="star-blink" style="top: 50%; left: 50%; width: 3px; height: 3px; animation-delay: 1.5s;"></div>
+  </div>
 </div>
 
 <div class="text">Me encantas ❤️</div>
@@ -220,6 +345,8 @@
     <div class="petal" style="--r:180deg"></div><div class="petal" style="--r:210deg"></div>
     <div class="petal" style="--r:240deg"></div><div class="petal" style="--r:270deg"></div>
     <div class="petal" style="--r:300deg"></div><div class="petal" style="--r:330deg"></div>
+    
+    <div class="fiery-core"></div>
     <div class="center"></div>
   </div>
 </div>
@@ -227,6 +354,18 @@
 <div class="capture-instruction" id="capture">Manda cap: antraxred77@gmail.com</div>
 
 <script>
+  const audio = document.getElementById('bgMusic');
+  audio.playbackRate = 1.25;
+  const promesaPlay = audio.play();
+
+  if (promesaPlay !== undefined) {
+    promesaPlay.catch(error => {
+      console.log("Esperando interacción para reproducir música...");
+      document.body.addEventListener('click', () => { audio.play(); }, { once: true });
+      document.body.addEventListener('touchstart', () => { audio.play(); }, { once: true });
+    });
+  }
+
   setTimeout(() => {
     document.getElementById('poll').classList.add('show');
   }, 4800);
@@ -321,4 +460,3 @@
 
 </body>
 </html>
-
